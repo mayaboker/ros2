@@ -37,7 +37,7 @@ class MockImagePublisher(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    image_path = '/home/user/src/image.png'
+    image_path = '/home/user/src/image.jpg'
 
     try:
         node = MockImagePublisher(image_path)
