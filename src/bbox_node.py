@@ -18,7 +18,7 @@ class MultiBoundingBoxNode(Node):
         self.bridge = CvBridge()
 
         # Set the path to the trained model (change to your model path)
-        model_path = '/home/user/weights/best.engine'  # You can use 'yolov8n-seg.pt' or any trained YOLOv8 model
+        model_path = '/home/user/weights/best.pt'  # You can use 'yolov8n-seg.pt' or any trained YOLOv8 model
         
         # Load the YOLOv8 segmentation model
         self.model = YOLO(model_path)
