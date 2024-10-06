@@ -22,7 +22,7 @@ class MultiBoundingBoxNode(Node):
         
         # Load the YOLOv8 segmentation model
         self.model = YOLO(model_path)
-        # self.model.to('cuda')
+        self.model.to('cuda')
         self.class_names = ['Sky', 'Water', 'Bridge', 'Obstacle', 'Living Obstacle', 'Background', 'Self']
         # 
 

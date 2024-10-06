@@ -1,4 +1,4 @@
-FROM dustynv/ros:humble-pytorch-l4t-r35.2.1 AS build
+FROM dustynv/ros:humble-ros-base-l4t-r36.2.0 AS build
 
 ENV DEBIAN_FRONTENT=nointeractive \
 SHELL=/bin/bash
@@ -65,17 +65,12 @@ RUN pip3 uninstall opencv-python -y
 RUN pip3 freeze | grep pytest \
     && python3 -m pytest --version
 
-# # bootstrap rosdep
-# RUN rosdep init \
-#     && rosdep update
 
-# # setup colcon mixin and metadata
-# RUN colcon mixin add default \
-#       https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && \
-#     colcon mixin update && \
-#     colcon metadata add default \
-#       https://raw.githubusercontent.com/colcon/colcon-metadata-repository/master/index.yaml && \
-#     colcon metadata update
+RUN pip3 uninstall torch -y
+
+COPY packages /tmp/packages/
+
+RUN pip3 install /tmp/packages/*
 
 # clone source
 ENV ROS2_WS /opt/ros2_ws
@@ -101,10 +96,6 @@ RUN mkdir -p /home/user/weights/
 
 COPY weights/ /home/user/weights/
 
-
-
-RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/install/setup.bash"
-
 ENV PYTHONPATH /opt/ros/humble/install/lib/python3.8/site-packages
 
 ENV PATH /opt/ros/humble/install/bin:/usr/local/cuda/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -116,5 +107,9 @@ ENV ROS_PACKAGE_PATH=/ros_deep_learning/install/ros_deep_learning/share
 ENV LD_LIBRARY_PATH=/opt/ros/humble/install/lib:/usr/local/cuda/lib64:/usr/local/cuda/lib64:
 
 ENV CUDA_HOME=/usr/local/cuda
+
+
+
+RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/install/setup.bash"
 
 CMD ["python3", "/home/user/src/bbox_node.py"]
