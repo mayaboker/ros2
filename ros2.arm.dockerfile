@@ -50,30 +50,7 @@ RUN pip3 install --no-cache-dir \
     
 WORKDIR  /home
 
-# install python packages
-# RUN pip3 install -U \
-#     argcomplete \
-#     flake8 \
-#     flake8-blind-except \
-#     flake8-builtins \
-#     flake8-class-newline \
-#     flake8-comprehensions \
-#     flake8-deprecated \
-#     flake8-docstrings \
-#     flake8-import-order \
-#     flake8-quotes \
-#     pytest-repeat \
-#     pytest-rerunfailures
-
 RUN pip3 install ultralytics --no-deps
-
-# RUN pip3 install numpy==1.23
-
-# RUN pip3 freeze | grep pytest \
-#     && python3 -m pytest --version
-
-
-# RUN pip3 uninstall torch -y
 
 COPY packages /tmp/packages/
 
@@ -115,8 +92,6 @@ ENV LD_LIBRARY_PATH=/opt/ros/humble/install/lib:/usr/local/cuda/lib64:/usr/local
 
 ENV CUDA_HOME=/usr/local/cuda
 
-
-
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/install/setup.bash"
 
-CMD ["python3", "/home/user/src/bbox_node.py"]
+# CMD ["python3", "/home/user/src/INSERT_FILE_NAME_HERE.py"]
