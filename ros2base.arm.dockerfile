@@ -98,5 +98,3 @@ ENV LD_LIBRARY_PATH=/opt/ros/humble/install/lib:/usr/local/cuda/lib64:/usr/local
 ENV CUDA_HOME=/usr/local/cuda
 
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/install/setup.bash"
-
-# CMD ["python3", "/home/user/src/INSERT_FILE_NAME_HERE.py"]
